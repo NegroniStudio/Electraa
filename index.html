@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Electra | Gestión Profesional</title>
+    <title>Electra | Inicio Profesional</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -14,24 +14,13 @@
             background-color: #fcfcfd; 
             color: #101828;
             margin: 0;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
 
         .premium-card {
             background: white;
             border: 1px solid #eaecf0;
-            box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .premium-card:active {
-            transform: scale(0.98);
-            background-color: #f9fafb;
-        }
-
-        .avatar-border {
-            padding: 4px;
-            background: linear-gradient(135deg, #2e90fa 0%, #1570ef 100%);
+            box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1);
         }
 
         .main-gradient {
@@ -39,177 +28,200 @@
         }
 
         .nav-blur {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
             border-top: 1px solid #eaecf0;
         }
 
-        .stats-badge {
-            background: #eff8ff;
-            color: #175cd3;
-            font-weight: 600;
+        /* Galería de imágenes con proporciones perfectas */
+        .image-grid-item {
+            aspect-ratio: 1 / 1;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            background-color: #f2f4f7;
+            border: 1px solid #eaecf0;
+            position: relative;
+        }
+
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-grid-item:active img {
+            transform: scale(1.05);
+        }
+
+        /* Estilo de los items de la barra de navegación */
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #667085;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: #1570ef;
+        }
+
+        .nav-item i {
+            font-size: 1.25rem;
+        }
+
+        .nav-item span {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }
     </style>
 </head>
-<body class="pb-28 main-gradient">
+<body class="pb-32 main-gradient min-h-screen">
 
-    <!-- TOP PROFILE BAR -->
-    <header class="px-6 pt-12 pb-6 flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full avatar-border shadow-lg">
-                <div class="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1518111382413-58133555230c?q=80&w=150&auto=format&fit=crop" alt="Electra" class="object-cover w-full h-full">
-                </div>
-            </div>
-            <div>
-                <h1 class="text-xl font-bold tracking-tight">Electra</h1>
-                <p class="text-xs font-medium text-slate-500">Border Collie · Hembra</p>
-            </div>
+    <!-- CABECERA PRINCIPAL -->
+    <header class="px-6 pt-14 pb-8 flex justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tighter">Electra</h1>
+            <p id="dynamic-subtitle" class="text-sm font-semibold text-blue-600 mt-1 uppercase tracking-wider">Cargando ciclo vital...</p>
         </div>
-        <button class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 shadow-sm">
-            <i class="far fa-bell"></i>
-        </button>
+        <div class="w-12 h-12 rounded-2xl bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-900">
+            <i class="fas fa-fingerprint text-xl"></i>
+        </div>
     </header>
 
-    <main class="px-6 space-y-8">
+    <main class="px-6 space-y-10">
         
-        <!-- RESUMEN DE DESARROLLO -->
-        <section class="premium-card rounded-3xl p-6">
-            <div class="flex justify-between items-start mb-6">
-                <div>
-                    <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Desarrollo Actual</h2>
-                    <p id="current-stage" class="text-lg font-bold text-slate-900">Etapa de Crecimiento</p>
-                </div>
-                <span class="stats-badge px-3 py-1 rounded-full text-[11px]">En Proceso</span>
+        <!-- SECCIÓN DE DESARROLLO (MODIFICADA CON EDAD DETALLADA) -->
+        <section class="premium-card rounded-[2.5rem] p-8 text-center">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-3">Tiempo de Evolución</p>
+            <div class="flex justify-center items-baseline gap-2">
+                <span id="days-count" class="text-7xl font-black tracking-tighter text-slate-900">--</span>
+                <span class="text-xl font-bold text-slate-400 uppercase">Días</span>
             </div>
-
-            <div class="flex items-baseline gap-2 mb-1">
-                <span id="days-count" class="text-5xl font-extrabold tracking-tighter">--</span>
-                <span class="text-lg font-bold text-slate-400">Días</span>
-            </div>
-            <p id="weeks-label" class="text-sm text-slate-500 font-medium mb-6">--</p>
-
-            <!-- Barra de progreso profesional -->
-            <div class="space-y-2">
-                <div class="flex justify-between text-xs font-bold">
-                    <span class="text-slate-400">Progreso de Madurez</span>
-                    <span id="progress-val" class="text-blue-600">--%</span>
-                </div>
-                <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                </div>
-            </div>
+            <!-- Nueva etiqueta detallada: Años, Meses, Semanas, Días -->
+            <p id="detailed-age-label" class="text-sm font-medium text-slate-800 mt-3 font-semibold">--</p>
+            <p class="text-[10px] text-slate-400 uppercase font-bold mt-1">Nacimiento: 09/12/2025</p>
         </section>
 
-        <!-- KPI GRID -->
+        <!-- GALERÍA DE IMÁGENES (6 ESPACIOS) -->
         <section>
-            <h3 class="text-sm font-bold text-slate-900 mb-4 px-1">Indicadores de Rendimiento</h3>
+            <div class="flex justify-between items-end mb-5 px-1">
+                <h3 class="text-lg font-black text-slate-900 tracking-tight">Galería de Inicio</h3>
+                <span class="text-[10px] font-bold text-slate-400 uppercase">/Electra/Inicio/</span>
+            </div>
+            
             <div class="grid grid-cols-2 gap-4">
-                <div class="premium-card rounded-3xl p-5">
-                    <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Cognición</p>
-                    <p id="stat-cog" class="text-sm font-bold text-slate-800 tracking-tight">Cargando...</p>
+                <div class="image-grid-item shadow-sm">
+                    <img src="Electra/Inicio/foto1.png" alt="Electra 1" onerror="this.src='https://via.placeholder.com/400?text=Electra+1'">
                 </div>
-                <div class="premium-card rounded-3xl p-5">
-                    <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
-                        <i class="fas fa-bolt-lightning"></i>
-                    </div>
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Capacidad Foco</p>
-                    <p id="stat-focus" class="text-sm font-bold text-slate-800 tracking-tight">-- min/sesión</p>
+                <div class="image-grid-item shadow-sm">
+                    <img src="Electra/Inicio/foto2.png" alt="Electra 2" onerror="this.src='https://via.placeholder.com/400?text=Electra+2'">
+                </div>
+                <div class="image-grid-item shadow-sm">
+                    <img src="Electra/Inicio/foto3.png" alt="Electra 3" onerror="this.src='https://via.placeholder.com/400?text=Electra+3'">
+                </div>
+                <div class="image-grid-item shadow-sm">
+                    <img src="Electra/Inicio/foto4.png" alt="Electra 4" onerror="this.src='https://via.placeholder.com/400?text=Electra+4'">
+                </div>
+                <div class="image-grid-item shadow-sm">
+                    <img src="Electra/Inicio/foto5.png" alt="Electra 5" onerror="this.src='https://via.placeholder.com/400?text=Electra+5'">
+                </div>
+                <div class="image-grid-item shadow-sm">
+                    <img src="Electra/Inicio/foto6.png" alt="Electra 6" onerror="this.src='https://via.placeholder.com/400?text=Electra+6'">
                 </div>
             </div>
-        </section>
-
-        <!-- ACCESOS RÁPIDOS (GENTLE CARDS) -->
-        <section class="space-y-3">
-            <h3 class="text-sm font-bold text-slate-900 mb-4 px-1">Gestión</h3>
-            
-            <a href="entrenamiento.html" class="premium-card rounded-[1.5rem] p-4 flex items-center gap-4 group">
-                <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-lg">
-                    <i class="fas fa-dumbbell text-sm"></i>
-                </div>
-                <div class="flex-1">
-                    <h4 class="text-sm font-bold text-slate-900">Plan de Entrenamiento</h4>
-                    <p class="text-[11px] text-slate-500">Objetivos semanales y técnica.</p>
-                </div>
-                <i class="fas fa-chevron-right text-slate-300 group-hover:text-slate-900 transition-colors mr-2"></i>
-            </a>
-
-            <a href="nutricion.html" class="premium-card rounded-[1.5rem] p-4 flex items-center gap-4 group">
-                <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-lg">
-                    <i class="fas fa-apple-whole text-sm"></i>
-                </div>
-                <div class="flex-1">
-                    <h4 class="text-sm font-bold text-slate-900">Registro Nutricional</h4>
-                    <p class="text-[11px] text-slate-500">Seguimiento de tomas y suplementos.</p>
-                </div>
-                <i class="fas fa-chevron-right text-slate-300 group-hover:text-slate-900 transition-colors mr-2"></i>
-            </a>
         </section>
 
     </main>
 
-    <!-- BOTTOM TAB NAVIGATION (PROFESSIONAL) -->
-    <nav class="fixed bottom-0 left-0 right-0 nav-blur px-8 py-4 flex justify-between items-center z-50">
-        <a href="index.html" class="flex flex-col items-center gap-1.5 text-blue-600">
-            <i class="fas fa-home-alt text-lg"></i>
-            <span class="text-[10px] font-bold">Inicio</span>
+    <!-- BARRA DE HERRAMIENTAS (6 SECCIONES) -->
+    <nav class="fixed bottom-0 left-0 right-0 nav-blur px-2 py-5 flex justify-around items-center z-50">
+        <a href="index.html" class="nav-item active">
+            <i class="fas fa-house-user"></i>
+            <span>Inicio</span>
         </a>
-        <a href="agenda.html" class="flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-600 transition-colors">
-            <i class="far fa-calendar-check text-lg"></i>
-            <span class="text-[10px] font-bold">Agenda</span>
+        <a href="entreno.html" class="nav-item">
+            <i class="fas fa-dumbbell"></i>
+            <span>Entreno</span>
         </a>
-        <a href="salud.html" class="flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-600 transition-colors">
-            <i class="far fa-heart text-lg"></i>
-            <span class="text-[10px] font-bold">Salud</span>
+        <a href="comida.html" class="nav-item">
+            <i class="fas fa-utensils"></i>
+            <span>Comida</span>
         </a>
-        <a href="config.html" class="flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-600 transition-colors">
-            <i class="far fa-user text-lg"></i>
-            <span class="text-[10px] font-bold">Perfil</span>
+        <a href="tips.html" class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            <span>Tips</span>
+        </a>
+        <a href="teoria.html" class="nav-item">
+            <i class="fas fa-book-open"></i>
+            <span>Teoría</span>
+        </a>
+        <a href="agenda.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda</span>
         </a>
     </nav>
 
     <script>
-        const BIRTH_DATE = new Date(2025, 11, 9); // 9 de Diciembre
+        // Configuración de fecha: 9 de Diciembre de 2025
+        const BIRTH_DATE = new Date(2025, 11, 9);
 
-        function refreshData() {
+        function updateProfessionalHome() {
             const now = new Date();
-            const days = Math.floor((now - BIRTH_DATE) / (1000 * 60 * 60 * 24));
+            
+            // Diferencia total en días
+            const diffTime = now - BIRTH_DATE;
+            const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Cálculo detallado de años, meses, semanas y días
+            let years = now.getFullYear() - BIRTH_DATE.getFullYear();
+            let months = now.getMonth() - BIRTH_DATE.getMonth();
+            let days = now.getDate() - BIRTH_DATE.getDate();
+
+            if (days < 0) {
+                months--;
+                // Obtener el último día del mes anterior
+                const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // De los días restantes en el mes, calculamos semanas y días
             const weeks = Math.floor(days / 7);
-            const remDays = days % 7;
+            const remainingDays = days % 7;
 
-            // UI Updates
-            document.getElementById('days-count').innerText = days;
-            document.getElementById('weeks-label').innerText = `${weeks} semanas, ${remDays} días de edad`;
+            // Formatear texto detallado
+            let ageText = "";
+            if (years > 0) ageText += `${years} ${years === 1 ? 'año' : 'años'}, `;
+            if (months > 0 || years > 0) ageText += `${months} ${months === 1 ? 'mes' : 'meses'}, `;
+            ageText += `${weeks} ${weeks === 1 ? 'semana' : 'semanas'} y ${remainingDays} ${remainingDays === 1 ? 'día' : 'días'}`;
 
-            // Maturity Logic (Standard Professional Benchmarks)
-            // Assuming 2 years (730 days) for full adulthood
-            const progress = Math.min(Math.round((days / 730) * 100), 100);
-            document.getElementById('progress-val').innerText = `${progress}%`;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
+            // Actualización de la interfaz
+            document.getElementById('days-count').innerText = totalDays;
+            document.getElementById('detailed-age-label').innerText = ageText;
 
-            const cog = document.getElementById('stat-cog');
-            const focus = document.getElementById('stat-focus');
-            const stage = document.getElementById('current-stage');
-
-            if (days < 90) {
-                stage.innerText = "Etapa de Socialización";
-                cog.innerText = "Alta Absorción";
-                focus.innerText = "2 - 5";
-            } else if (days < 180) {
-                stage.innerText = "Etapa de Adiestramiento";
-                cog.innerText = "Asociación Rápida";
-                focus.innerText = "8 - 15";
+            // Subtítulo dinámico basado en edad
+            const subtitle = document.getElementById('dynamic-subtitle');
+            if (totalDays < 90) {
+                subtitle.innerText = "Fase de Socialización Temprana";
+            } else if (totalDays < 180) {
+                subtitle.innerText = "Fase de Adiestramiento Activo";
             } else {
-                stage.innerText = "Etapa de Especialización";
-                cog.innerText = "Consolidación";
-                focus.innerText = "20+";
+                subtitle.innerText = "Fase de Especialización Collie";
             }
         }
 
-        refreshData();
+        updateProfessionalHome();
+        // Actualizar cada minuto por si cambia el tiempo
+        setInterval(updateProfessionalHome, 60000);
     </script>
 </body>
 </html>
