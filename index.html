@@ -1,1 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Electra | Gestión Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fcfcfd; 
+            color: #101828;
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
 
+        .premium-card {
+            background: white;
+            border: 1px solid #eaecf0;
+            box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .premium-card:active {
+            transform: scale(0.98);
+            background-color: #f9fafb;
+        }
+
+        .avatar-border {
+            padding: 4px;
+            background: linear-gradient(135deg, #2e90fa 0%, #1570ef 100%);
+        }
+
+        .main-gradient {
+            background: linear-gradient(180deg, #f2f4f7 0%, #fcfcfd 100%);
+        }
+
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid #eaecf0;
+        }
+
+        .stats-badge {
+            background: #eff8ff;
+            color: #175cd3;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="pb-28 main-gradient">
+
+    <!-- TOP PROFILE BAR -->
+    <header class="px-6 pt-12 pb-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full avatar-border shadow-lg">
+                <div class="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1518111382413-58133555230c?q=80&w=150&auto=format&fit=crop" alt="Electra" class="object-cover w-full h-full">
+                </div>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight">Electra</h1>
+                <p class="text-xs font-medium text-slate-500">Border Collie · Hembra</p>
+            </div>
+        </div>
+        <button class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 shadow-sm">
+            <i class="far fa-bell"></i>
+        </button>
+    </header>
+
+    <main class="px-6 space-y-8">
+        
+        <!-- RESUMEN DE DESARROLLO -->
+        <section class="premium-card rounded-3xl p-6">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Desarrollo Actual</h2>
+                    <p id="current-stage" class="text-lg font-bold text-slate-900">Etapa de Crecimiento</p>
+                </div>
+                <span class="stats-badge px-3 py-1 rounded-full text-[11px]">En Proceso</span>
+            </div>
+
+            <div class="flex items-baseline gap-2 mb-1">
+                <span id="days-count" class="text-5xl font-extrabold tracking-tighter">--</span>
+                <span class="text-lg font-bold text-slate-400">Días</span>
+            </div>
+            <p id="weeks-label" class="text-sm text-slate-500 font-medium mb-6">--</p>
+
+            <!-- Barra de progreso profesional -->
+            <div class="space-y-2">
+                <div class="flex justify-between text-xs font-bold">
+                    <span class="text-slate-400">Progreso de Madurez</span>
+                    <span id="progress-val" class="text-blue-600">--%</span>
+                </div>
+                <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KPI GRID -->
+        <section>
+            <h3 class="text-sm font-bold text-slate-900 mb-4 px-1">Indicadores de Rendimiento</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="premium-card rounded-3xl p-5">
+                    <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Cognición</p>
+                    <p id="stat-cog" class="text-sm font-bold text-slate-800 tracking-tight">Cargando...</p>
+                </div>
+                <div class="premium-card rounded-3xl p-5">
+                    <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt-lightning"></i>
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Capacidad Foco</p>
+                    <p id="stat-focus" class="text-sm font-bold text-slate-800 tracking-tight">-- min/sesión</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCESOS RÁPIDOS (GENTLE CARDS) -->
+        <section class="space-y-3">
+            <h3 class="text-sm font-bold text-slate-900 mb-4 px-1">Gestión</h3>
+            
+            <a href="entrenamiento.html" class="premium-card rounded-[1.5rem] p-4 flex items-center gap-4 group">
+                <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-lg">
+                    <i class="fas fa-dumbbell text-sm"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="text-sm font-bold text-slate-900">Plan de Entrenamiento</h4>
+                    <p class="text-[11px] text-slate-500">Objetivos semanales y técnica.</p>
+                </div>
+                <i class="fas fa-chevron-right text-slate-300 group-hover:text-slate-900 transition-colors mr-2"></i>
+            </a>
+
+            <a href="nutricion.html" class="premium-card rounded-[1.5rem] p-4 flex items-center gap-4 group">
+                <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-lg">
+                    <i class="fas fa-apple-whole text-sm"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="text-sm font-bold text-slate-900">Registro Nutricional</h4>
+                    <p class="text-[11px] text-slate-500">Seguimiento de tomas y suplementos.</p>
+                </div>
+                <i class="fas fa-chevron-right text-slate-300 group-hover:text-slate-900 transition-colors mr-2"></i>
+            </a>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM TAB NAVIGATION (PROFESSIONAL) -->
+    <nav class="fixed bottom-0 left-0 right-0 nav-blur px-8 py-4 flex justify-between items-center z-50">
+        <a href="index.html" class="flex flex-col items-center gap-1.5 text-blue-600">
+            <i class="fas fa-home-alt text-lg"></i>
+            <span class="text-[10px] font-bold">Inicio</span>
+        </a>
+        <a href="agenda.html" class="flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-600 transition-colors">
+            <i class="far fa-calendar-check text-lg"></i>
+            <span class="text-[10px] font-bold">Agenda</span>
+        </a>
+        <a href="salud.html" class="flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-600 transition-colors">
+            <i class="far fa-heart text-lg"></i>
+            <span class="text-[10px] font-bold">Salud</span>
+        </a>
+        <a href="config.html" class="flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-600 transition-colors">
+            <i class="far fa-user text-lg"></i>
+            <span class="text-[10px] font-bold">Perfil</span>
+        </a>
+    </nav>
+
+    <script>
+        const BIRTH_DATE = new Date(2025, 11, 9); // 9 de Diciembre
+
+        function refreshData() {
+            const now = new Date();
+            const days = Math.floor((now - BIRTH_DATE) / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(days / 7);
+            const remDays = days % 7;
+
+            // UI Updates
+            document.getElementById('days-count').innerText = days;
+            document.getElementById('weeks-label').innerText = `${weeks} semanas, ${remDays} días de edad`;
+
+            // Maturity Logic (Standard Professional Benchmarks)
+            // Assuming 2 years (730 days) for full adulthood
+            const progress = Math.min(Math.round((days / 730) * 100), 100);
+            document.getElementById('progress-val').innerText = `${progress}%`;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            const cog = document.getElementById('stat-cog');
+            const focus = document.getElementById('stat-focus');
+            const stage = document.getElementById('current-stage');
+
+            if (days < 90) {
+                stage.innerText = "Etapa de Socialización";
+                cog.innerText = "Alta Absorción";
+                focus.innerText = "2 - 5";
+            } else if (days < 180) {
+                stage.innerText = "Etapa de Adiestramiento";
+                cog.innerText = "Asociación Rápida";
+                focus.innerText = "8 - 15";
+            } else {
+                stage.innerText = "Etapa de Especialización";
+                cog.innerText = "Consolidación";
+                focus.innerText = "20+";
+            }
+        }
+
+        refreshData();
+    </script>
+</body>
+</html>
