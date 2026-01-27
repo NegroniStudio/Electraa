@@ -1,1 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Electra | Entrenamientos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fcfcfd; 
+            color: #101828;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
 
+        .main-gradient {
+            background: linear-gradient(180deg, #f2f4f7 0%, #fcfcfd 100%);
+        }
+
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid #eaecf0;
+        }
+
+        .training-card {
+            background: white;
+            border-radius: 2rem;
+            overflow: hidden;
+            border: 1px solid #eaecf0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .training-card:active {
+            transform: scale(0.98);
+        }
+
+        .image-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #f2f4f7;
+            position: relative;
+        }
+
+        .training-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .training-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #667085;
+            transition: all 0.2s ease;
+            flex: 1;
+            text-decoration: none;
+        }
+
+        .nav-item.active {
+            color: #1570ef;
+        }
+
+        .nav-item span {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Estilo para el botón Añadir */
+        .add-button {
+            width: 60px;
+            height: 60px;
+            background: #1570ef;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(21, 112, 239, 0.3);
+            margin: 2rem auto;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-button:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        #notification-box {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: none;
+        }
+    </style>
+</head>
+<body class="pb-32 main-gradient min-h-screen">
+
+    <!-- CABECERA -->
+    <header class="px-6 pt-14 pb-8">
+        <h1 class="text-3xl font-black text-slate-900 tracking-tighter">Entrenamientos</h1>
+        <p class="text-sm font-semibold text-blue-600 mt-1 uppercase tracking-wider">Plan de Evolución Electra</p>
+    </header>
+
+    <!-- LISTADO DE ENTRENAMIENTOS -->
+    <main id="training-list" class="px-6 space-y-6">
+        <!-- Los entrenamientos se cargarán aquí dinámicamente -->
+    </main>
+
+    <!-- BOTÓN PARA AGREGAR MÁS -->
+    <div class="flex flex-col items-center">
+        <div id="btn-add-training" class="add-button">
+            <i class="fas fa-plus"></i>
+        </div>
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Añadir Módulo</p>
+    </div>
+
+    <!-- NOTIFICACIÓN -->
+    <div id="notification-box" class="bg-slate-900 text-white px-6 py-3 rounded-full text-xs font-bold shadow-xl">
+        <span id="notification-text"></span>
+    </div>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="fixed bottom-0 left-0 right-0 nav-blur px-2 py-5 flex justify-around items-center z-50">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-house-user"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Entreno.html" class="nav-item active">
+            <i class="fas fa-dumbbell"></i>
+            <span>Entreno</span>
+        </a>
+        <a href="Comida.html" class="nav-item">
+            <i class="fas fa-utensils"></i>
+            <span>Comida</span>
+        </a>
+        <a href="Tips.html" class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            <span>Tips</span>
+        </a>
+        <a href="Teoría.html" class="nav-item">
+            <i class="fas fa-book-open"></i>
+            <span>Teoría</span>
+        </a>
+        <a href="Agenda.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda</span>
+        </a>
+    </nav>
+
+    <script>
+        // Configuración inicial
+        const STORAGE_KEY = 'electra_active_trainings';
+        const BASE_PATH = 'Entrenamiento';
+        const trainingListContainer = document.getElementById('training-list');
+        const btnAdd = document.getElementById('btn-add-training');
+
+        // Estado inicial: Si no hay nada en localStorage, empezamos con 3
+        let activeCount = parseInt(localStorage.getItem(STORAGE_KEY)) || 3;
+
+        // Función para renderizar la lista
+        function renderTrainings() {
+            trainingListContainer.innerHTML = '';
+            for (let i = 1; i <= activeCount; i++) {
+                addCardToUI(i);
+            }
+        }
+
+        // Función para crear la tarjeta en la interfaz
+        function addCardToUI(id) {
+            const card = document.createElement('div');
+            card.className = 'training-card shadow-sm';
+            
+            // Ruta de la imagen y del HTML según tu estructura
+            const imgPath = `${BASE_PATH}/E${id}/${id}.jpeg`;
+            const htmlPath = `${BASE_PATH}/E${id}/${id}.html`;
+
+            card.innerHTML = `
+                <a href="${htmlPath}" class="block">
+                    <div class="image-container">
+                        <span class="training-badge">Módulo E${id}</span>
+                        <img src="${imgPath}" alt="Entrenamiento ${id}" class="training-image" onerror="this.src='https://via.placeholder.com/800x450?text=Entrenamiento+${id}'">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-black text-slate-800">Entrenamiento ${id}</h2>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1 font-medium uppercase tracking-wider">Toca para ver los detalles del ejercicio</p>
+                    </div>
+                </a>
+            `;
+            trainingListContainer.appendChild(card);
+        }
+
+        // Función para verificar si existe el siguiente entrenamiento
+        async function tryAddNextTraining() {
+            const nextId = activeCount + 1;
+            const nextPath = `${BASE_PATH}/E${nextId}/${nextId}.jpeg`;
+
+            showNotification(`Buscando Módulo E${nextId}...`);
+
+            // Intentamos verificar si la imagen existe (esto valida la carpeta en GitHub)
+            try {
+                const response = await fetch(nextPath, { method: 'HEAD' });
+                
+                if (response.ok) {
+                    activeCount++;
+                    localStorage.setItem(STORAGE_KEY, activeCount);
+                    addCardToUI(activeCount);
+                    showNotification(`¡Módulo E${activeCount} añadido con éxito!`);
+                    
+                    // Scroll suave hacia abajo
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else {
+                    showNotification(`Error: El entrenamiento E${nextId} no existe en el servidor.`);
+                }
+            } catch (error) {
+                showNotification("Error de conexión al buscar nuevos módulos.");
+            }
+        }
+
+        // Sistema de notificaciones simple
+        function showNotification(text) {
+            const box = document.getElementById('notification-box');
+            const txt = document.getElementById('notification-text');
+            txt.innerText = text;
+            box.style.display = 'block';
+            setTimeout(() => {
+                box.style.display = 'none';
+            }, 3000);
+        }
+
+        // Eventos
+        btnAdd.addEventListener('click', tryAddNextTraining);
+
+        // Carga inicial
+        window.onload = renderTrainings;
+    </script>
+</body>
+</html>
