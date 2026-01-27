@@ -103,7 +103,7 @@
                 <span id="days-count" class="text-7xl font-black tracking-tighter text-slate-900">--</span>
                 <span class="text-xl font-bold text-slate-400 uppercase">Días</span>
             </div>
-            <!-- Nueva etiqueta detallada: Años, Meses, Semanas, Días -->
+            <!-- Nueva etiqueta detallada: Años, Meses, Semanas y Edad (Días) -->
             <p id="detailed-age-label" class="text-sm font-medium text-slate-800 mt-3 font-semibold">--</p>
             <p class="text-[10px] text-slate-400 uppercase font-bold mt-1">Nacimiento: 09/12/2025</p>
         </section>
@@ -117,22 +117,22 @@
             
             <div class="grid grid-cols-2 gap-4">
                 <div class="image-grid-item shadow-sm">
-                    <img src="Electra/Inicio/foto1.jpeg" alt="Electra 1" onerror="this.src='https://via.placeholder.com/400?text=Electra+1'">
+                    <img src="Electra/Inicio/foto1.jpeg" alt="Electra 1" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-[10px] text-slate-400\'>Foto 1</div>'">
                 </div>
                 <div class="image-grid-item shadow-sm">
-                    <img src="Electra/Inicio/foto2.jpeg" alt="Electra 2" onerror="this.src='https://via.placeholder.com/400?text=Electra+2'">
+                    <img src="Electra/Inicio/foto2.jpeg" alt="Electra 2" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-[10px] text-slate-400\'>Foto 2</div>'">
                 </div>
                 <div class="image-grid-item shadow-sm">
-                    <img src="Electra/Inicio/foto3.jpeg" alt="Electra 3" onerror="this.src='https://via.placeholder.com/400?text=Electra+3'">
+                    <img src="Electra/Inicio/foto3.jpeg" alt="Electra 3" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-[10px] text-slate-400\'>Foto 3</div>'">
                 </div>
                 <div class="image-grid-item shadow-sm">
-                    <img src="Electra/Inicio/foto4.jpeg" alt="Electra 4" onerror="this.src='https://via.placeholder.com/400?text=Electra+4'">
+                    <img src="Electra/Inicio/foto4.jpeg" alt="Electra 4" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-[10px] text-slate-400\'>Foto 4</div>'">
                 </div>
                 <div class="image-grid-item shadow-sm">
-                    <img src="Electra/Inicio/foto5.jpeg" alt="Electra 5" onerror="this.src='https://via.placeholder.com/400?text=Electra+5'">
+                    <img src="Electra/Inicio/foto5.jpeg" alt="Electra 5" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-[10px] text-slate-400\'>Foto 5</div>'">
                 </div>
                 <div class="image-grid-item shadow-sm">
-                    <img src="Electra/Inicio/foto6.jpeg" alt="Electra 6" onerror="this.src='https://via.placeholder.com/400?text=Electra+6'">
+                    <img src="Electra/Inicio/foto6.jpeg" alt="Electra 6" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-[10px] text-slate-400\'>Foto 6</div>'">
                 </div>
             </div>
         </section>
@@ -185,7 +185,6 @@
 
             if (days < 0) {
                 months--;
-                // Obtener el último día del mes anterior
                 const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
                 days += lastMonth.getDate();
             }
@@ -194,23 +193,25 @@
                 months += 12;
             }
 
-            // De los días restantes en el mes, calculamos semanas y días
             const weeks = Math.floor(days / 7);
             const remainingDays = days % 7;
 
-            // Formatear texto detallado
+            // Formatear texto detallado: Años, Meses, Semanas y Edad (Días)
             let ageText = "";
-            if (years > 0) ageText += `${years} ${years === 1 ? 'año' : 'años'}, `;
-            if (months > 0 || years > 0) ageText += `${months} ${months === 1 ? 'mes' : 'meses'}, `;
-            ageText += `${weeks} ${weeks === 1 ? 'semana' : 'semanas'} y ${remainingDays} ${remainingDays === 1 ? 'día' : 'días'}`;
+            ageText += `${years} ${years === 1 ? 'año' : 'años'}, `;
+            ageText += `${months} ${months === 1 ? 'mes' : 'meses'}, `;
+            ageText += `${weeks} ${weeks === 1 ? 'semana' : 'semanas'} y `;
+            ageText += `${remainingDays} ${remainingDays === 1 ? 'día de edad' : 'días de edad'}`;
 
             // Actualización de la interfaz
-            document.getElementById('days-count').innerText = totalDays;
-            document.getElementById('detailed-age-label').innerText = ageText;
+            document.getElementById('days-count').innerText = Math.max(0, totalDays);
+            document.getElementById('detailed-age-label').innerText = totalDays < 0 ? "Próximo nacimiento" : ageText;
 
             // Subtítulo dinámico basado en edad
             const subtitle = document.getElementById('dynamic-subtitle');
-            if (totalDays < 90) {
+            if (totalDays < 0) {
+                subtitle.innerText = "Esperando llegada...";
+            } else if (totalDays < 90) {
                 subtitle.innerText = "Fase de Socialización Temprana";
             } else if (totalDays < 180) {
                 subtitle.innerText = "Fase de Adiestramiento Activo";
@@ -220,7 +221,6 @@
         }
 
         updateProfessionalHome();
-        // Actualizar cada minuto por si cambia el tiempo
         setInterval(updateProfessionalHome, 60000);
     </script>
 </body>
