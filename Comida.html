@@ -33,44 +33,38 @@
 
         .tab-active { background: #1570ef; color: white; }
 
-        /* Barra de herramientas inferior CORREGIDA */
+        /* Barra de herramientas inferior UNIFICADA */
         .nav-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 75px;
-            background: white;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
             border-top: 1px solid #eaecf0;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
-            padding: 0 5px;
+            padding: 1.25rem 0.5rem;
             z-index: 9999;
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            font-size: 0.55rem;
-            font-weight: 800;
-            color: #667085;
-            text-decoration: none;
-            flex: 1;
             gap: 4px;
+            color: #667085;
+            flex: 1;
+            text-decoration: none;
             transition: all 0.2s ease;
         }
 
         .nav-item i { font-size: 1.1rem; }
+        .nav-item span { font-size: 9px; font-weight: 700; text-transform: uppercase; }
         
         /* Estilo para la página actual */
-        .nav-item.active { 
-            color: #1570ef; 
-            pointer-events: none; /* Desactiva el click en la página actual */
-        }
+        .nav-item.active { color: #1570ef; }
 
         .badge-exact {
             background: #ecfdf3;
@@ -127,7 +121,7 @@
                 </div>
             </div>
 
-            <!-- RESULTADOS CALCULADOS SEGÚN EDAD EXACTA -->
+            <!-- RESULTADOS CALCULADOS -->
             <div class="grid grid-cols-3 gap-3 mt-8">
                 <div class="bg-blue-50/50 p-3 rounded-2xl text-center border border-blue-100">
                     <p class="text-[8px] font-bold text-blue-600 uppercase">Mañana</p>
@@ -155,7 +149,7 @@
             </div>
         </div>
 
-        <!-- BOTÓN RÁPIDO -->
+        <!-- BOTÓN ALIMENTOS PROHIBIDOS -->
         <a href="AlimentosProhibidos.html" class="mt-4 flex items-center justify-between w-full bg-red-50 border border-red-100 p-4 rounded-2xl text-red-700 shadow-sm active:scale-95 transition-transform">
             <div class="flex items-center gap-3">
                 <div class="bg-red-500 text-white p-2 rounded-lg">
@@ -166,7 +160,7 @@
             <i class="fas fa-chevron-right text-red-200"></i>
         </a>
 
-        <!-- ENTRENAMIENTO Y AGUA -->
+        <!-- RESERVA ENTRENAMIENTO -->
         <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mt-8 mb-3">Refuerzo y Salud</h3>
         <div class="bg-slate-900 rounded-3xl p-5 text-white mb-6">
             <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-4">
@@ -187,32 +181,31 @@
         </div>
     </div>
 
-    <!-- NAVEGACIÓN INFERIOR (ENLACES CORREGIDOS) -->
+    <!-- NAVEGACIÓN INFERIOR (CORREGIDA) -->
     <nav class="nav-bar">
         <a href="index.html" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>INICIO</span>
+            <i class="fas fa-house-user"></i>
+            <span>Inicio</span>
         </a>
         <a href="Entreno.html" class="nav-item">
             <i class="fas fa-dumbbell"></i>
-            <span>ENTRENO</span>
+            <span>Entreno</span>
         </a>
-        <!-- Página Actual: Desactivada y Activa Visualmente -->
-        <a href="#" class="nav-item active">
-            <i class="fas fa-bone"></i>
-            <span>COMIDA</span>
+        <a href="Comida.html" class="nav-item active">
+            <i class="fas fa-utensils"></i>
+            <span>Comida</span>
         </a>
         <a href="Tips.html" class="nav-item">
             <i class="fas fa-lightbulb"></i>
-            <span>TIPS</span>
+            <span>Tips</span>
         </a>
-        <a href="Teoria.html" class="nav-item">
+        <a href="Teoría.html" class="nav-item">
             <i class="fas fa-book-open"></i>
-            <span>TEORÍA</span>
+            <span>Teoría</span>
         </a>
         <a href="Agenda.html" class="nav-item">
             <i class="fas fa-calendar-alt"></i>
-            <span>AGENDA</span>
+            <span>Agenda</span>
         </a>
     </nav>
 
@@ -228,9 +221,8 @@
         const trainAmount = document.getElementById('trainAmount');
         const stepLabel = document.getElementById('stepLabel');
 
-        // Configuración de Fechas Exactas de Electra
-        const birthDate = new Date(2025, 11, 9); // 9 de Dic 2025
-        const today = new Date(2026, 0, 27);    // 27 de Ene 2026
+        const birthDate = new Date(2025, 11, 9); 
+        const today = new Date(); 
 
         function setPrecision(type) {
             if (type === 'standard') {
@@ -250,11 +242,8 @@
         function calculateExactAge() {
             const diffTime = Math.abs(today - birthDate);
             const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            // Cálculo de meses y días restantes
             const months = Math.floor(totalDays / 30.44);
             const days = Math.floor(totalDays % 30.44);
-            
             return { months, days, totalDays };
         }
 
@@ -266,24 +255,14 @@
             ageDisplay.innerText = `${age.months} m, ${age.days} d`;
             daysDisplay.innerText = `${age.totalDays}`;
 
-            // LÓGICA DE CALORÍAS SEGÚN EDAD EXACTA (DÍAS TOTALES)
             let factor;
-            if (age.totalDays <= 60) {
-                // Cachorro lactante/transición (Menos de 2 meses)
-                factor = 62; 
-            } else if (age.totalDays <= 120) {
-                // Cachorro joven (2-4 meses)
-                factor = 52;
-            } else if (age.totalDays <= 240) {
-                // Cachorro en crecimiento (4-8 meses)
-                factor = 42;
-            } else {
-                // Border Collie Joven/Adulto
-                factor = 32;
-            }
+            if (age.totalDays <= 60) factor = 62; 
+            else if (age.totalDays <= 120) factor = 52;
+            else if (age.totalDays <= 240) factor = 42;
+            else factor = 32;
 
             const totalGrams = weight * factor;
-            const trainingReserve = Math.round(totalGrams * 0.15); // 15% para entrenar
+            const trainingReserve = Math.round(totalGrams * 0.15); 
             const netDaily = totalGrams - trainingReserve;
             const perMeal = Math.round(netDaily / 3);
 
@@ -295,7 +274,7 @@
         }
 
         weightSlider.addEventListener('input', updateValues);
-        updateValues(); // Inicializar al cargar
+        updateValues();
     </script>
 </body>
 </html>
