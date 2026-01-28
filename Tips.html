@@ -1,1 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Electra | 100 Tips Maestros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8f9fc; 
+            color: #101828;
+            margin: 0;
+        }
 
+        .tip-card {
+            background: white;
+            border: 1px solid #eaecf0;
+            border-radius: 1.25rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .tip-card:active {
+            transform: scale(0.97);
+            background-color: #f2f4f7;
+        }
+
+        .category-badge {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .cat-conducta { background: #e0f2fe; color: #075985; }
+        .cat-estimulacion { background: #fef0c7; color: #92400e; }
+        .cat-salud { background: #fee4e2; color: #d92d20; }
+        .cat-higiene { background: #d1fae5; color: #065f46; }
+
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid #eaecf0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #667085;
+            flex: 1;
+            text-decoration: none;
+        }
+
+        .nav-item.active { color: #1570ef; }
+        .nav-item span { font-size: 9px; font-weight: 700; text-transform: uppercase; }
+
+        .search-container {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: #f8f9fc;
+            padding: 1rem 1.5rem;
+        }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- HEADER -->
+    <header class="px-6 pt-14 pb-4">
+        <h1 class="text-3xl font-black text-slate-900 tracking-tighter">Tips Maestros</h1>
+        <p class="text-sm font-semibold text-blue-600 mt-1 uppercase tracking-wider">Manual de Supervivencia Electra</p>
+    </header>
+
+    <!-- BUSCADOR -->
+    <div class="search-container">
+        <div class="relative">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input type="text" id="tipSearch" placeholder="Buscar por palabra o categoría..." class="w-full bg-white border border-slate-200 rounded-2xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+        </div>
+    </div>
+
+    <main class="px-6 mt-4 space-y-4" id="tips-list">
+        <!-- Generación dinámica de los 100 tips en el orden solicitado -->
+    </main>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="fixed bottom-0 left-0 right-0 nav-blur px-2 py-5 flex justify-around items-center z-50">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-house-user"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Entreno.html" class="nav-item">
+            <i class="fas fa-dumbbell"></i>
+            <span>Entreno</span>
+        </a>
+        <a href="Comida.html" class="nav-item">
+            <i class="fas fa-utensils"></i>
+            <span>Comida</span>
+        </a>
+        <a href="Tips.html" class="nav-item active">
+            <i class="fas fa-lightbulb"></i>
+            <span>Tips</span>
+        </a>
+        <a href="Teoría.html" class="nav-item">
+            <i class="fas fa-book-open"></i>
+            <span>Teoría</span>
+        </a>
+        <a href="Agenda.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda</span>
+        </a>
+    </nav>
+
+    <script>
+        const tips = [
+            // 1. CONDUCTA (25)
+            { cat: "conducta", t: "Usa siempre refuerzo positivo. El castigo rompe su confianza." },
+            { cat: "conducta", t: "Sé consistente: si algo está prohibido hoy, lo está siempre." },
+            { cat: "conducta", t: "Premia la calma. Si se tumba tranquila, dale un premio sin decir nada." },
+            { cat: "conducta", t: "Ignora los saltos al saludarte; solo acaricia cuando tenga las 4 patas en el suelo." },
+            { cat: "conducta", t: "Enséñale la orden 'Deja' para evitar que coma cosas del suelo." },
+            { cat: "conducta", t: "La socialización no es solo ver perros, es ver ruidos, gente y entornos." },
+            { cat: "conducta", t: "Si muerde tus manos, sustituye por un juguete de inmediato." },
+            { cat: "conducta", t: "No la persigas si te quita algo; corre en dirección contraria para que ella te siga." },
+            { cat: "conducta", t: "Establece una rutina de horarios para comida y paseos." },
+            { cat: "conducta", t: "Usa palabras cortas y claras (SIT, QUIETO, AQUÍ)." },
+            { cat: "conducta", t: "El tono de voz importa: agudo para motivar, grave para corregir." },
+            { cat: "conducta", t: "Nunca la llames para algo malo (como bañarla o regañarla)." },
+            { cat: "conducta", t: "Práctica el 'Quieto' antes de ponerle el plato de comida." },
+            { cat: "conducta", t: "Evita juegos de persecución con niños si ella intenta 'pastorearlos'." },
+            { cat: "conducta", t: "Si se asusta de algo, no la fuerces; deja que lo explore a su ritmo." },
+            { cat: "conducta", t: "Premia cuando te mire espontáneamente durante el paseo." },
+            { cat: "conducta", t: "Trabaja la ansiedad por separación con salidas cortas desde el primer día." },
+            { cat: "conducta", t: "No permitas que tire de la correa; frena en seco cada vez que lo haga." },
+            { cat: "conducta", t: "Fomenta el juego de 'Tira y afloja' pero enséñale a soltar a la orden." },
+            { cat: "conducta", t: "Si Electra ladra por la ventana, cierra la persiana o distráela con un ejercicio." },
+            { cat: "conducta", t: "Usa el 'Clicker' para marcar comportamientos exactos de forma rápida." },
+            { cat: "conducta", t: "Acostúmbrala a ruidos de tormentas o petardos con grabaciones a bajo volumen." },
+            { cat: "conducta", t: "No la dejes sola en el jardín mucho tiempo; se aburrirá y cavará pozos." },
+            { cat: "conducta", t: "Premia que se quede tranquila en su cama mientras comes." },
+            { cat: "conducta", t: "Ten paciencia: el Border Collie es listo pero también muy sensible." },
+
+            // 2. ESTIMULACIÓN MENTAL (25)
+            { cat: "estimulacion", t: "15 min de olfato cansan más que 1 hora de carrera." },
+            { cat: "estimulacion", t: "Usa juguetes tipo KONG para que se entretenga lamiendo." },
+            { cat: "estimulacion", t: "Esconde premios por la casa y dile 'Busca'." },
+            { cat: "estimulacion", t: "Cambia la ruta de paseo a diario para nuevos estímulos visuales." },
+            { cat: "estimulacion", t: "Enséñale un truco nuevo cada semana para mantener su cerebro activo." },
+            { cat: "estimulacion", t: "Usa alfombras de olfato (Snuffle Mats) para su cena." },
+            { cat: "estimulacion", t: "Enséñale a distinguir nombres de juguetes (Ej: 'Trae la pelota', 'Trae el oso')." },
+            { cat: "estimulacion", t: "Practica el moldeado: deja que ella proponga conductas y prémialas." },
+            { cat: "estimulacion", t: "Los juegos de inteligencia nivel 1 son ideales para empezar." },
+            { cat: "estimulacion", t: "Llévala a lugares nuevos como centros comerciales pet-friendly." },
+            { cat: "estimulacion", t: "Usa el paseo para practicar órdenes de obediencia básica." },
+            { cat: "estimulacion", t: "Fomenta que use sus patas para resolver problemas simples." },
+            { cat: "estimulacion", t: "Alterna sus juguetes: no le des todos a la vez, guarda algunos 15 días." },
+            { cat: "estimulacion", t: "Juega a '¿En qué mano está el premio?'." },
+            { cat: "estimulacion", t: "Práctica el autocontrol: deja un premio en el suelo y que no lo coma hasta la orden." },
+            { cat: "estimulacion", t: "Llévala a ver otros animales de granja si es posible (con distancia)." },
+            { cat: "estimulacion", t: "Iníciala en el Agility de forma casera con palos y cajas." },
+            { cat: "estimulacion", t: "Usa botellas de plástico (sin tapón ni aro) con premios dentro como puzzle." },
+            { cat: "estimulacion", t: "Enséñale a recoger sus juguetes y ponerlos en una caja." },
+            { cat: "estimulacion", t: "Practica el 'Free Work': pon diferentes texturas y objetos en el suelo para que explore." },
+            { cat: "estimulacion", t: "Haz que Electra 'te ayude' a buscar las llaves (con su olor)." },
+            { cat: "estimulacion", t: "Usa un 'Lick Mat' con yogurt natural cuando necesites que esté quieta." },
+            { cat: "estimulacion", t: "La natación es un excelente ejercicio físico y mental." },
+            { cat: "estimulacion", t: "Premia la resolución de problemas independiente." },
+            { cat: "estimulacion", t: "Recuerda: Un Border Collie aburrido es un Border Collie destructor." },
+
+            // 3. SALUD (25)
+            { cat: "salud", t: "Controla su peso mensualmente para evitar estrés en sus articulaciones." },
+            { cat: "salud", t: "Limpia sus oídos semanalmente para prevenir otitis, común en razas activas." },
+            { cat: "salud", t: "Revisa sus almohadillas después de paseos por asfalto caliente o zonas pedregosas." },
+            { cat: "salud", t: "Mantén sus vacunas al día; el Border Collie explora mucho y se expone más." },
+            { cat: "salud", t: "Desparasitación interna cada 3 meses sin falta." },
+            { cat: "salud", t: "Usa pipetas o collares antiparasitarios contra leishmania y garrapatas." },
+            { cat: "salud", t: "Cepillado dental diario o snacks dentales para evitar sarro." },
+            { cat: "salud", t: "Si notas cojera, aunque sea leve, consulta al veterinario (displasia)." },
+            { cat: "salud", t: "Ojo con el golpe de calor: siempre agua fresca disponible." },
+            { cat: "salud", t: "Evita ejercicio intenso justo después de comer (riesgo de torsión gástrica)." },
+            { cat: "salud", t: "Observa sus heces; son el mejor indicador de su salud digestiva." },
+            { cat: "salud", t: "Revisa sus ojos regularmente para detectar opacidades o exceso de legañas." },
+            { cat: "salud", t: "Corta sus uñas si escuchas que 'hacen clic' en el suelo." },
+            { cat: "salud", t: "Asegúrate de que duerma al menos 12-14 horas (especialmente de cachorro)." },
+            { cat: "salud", t: "Evita saltos de altura hasta que sus placas de crecimiento cierren (12-14 meses)." },
+            { cat: "salud", t: "Proporciónale ácidos grasos Omega-3 para un pelo brillante y articulaciones sanas." },
+            { cat: "salud", t: "No la bañes más de una vez al mes para no dañar su grasa natural." },
+            { cat: "salud", t: "Seca muy bien su pelo tras el baño para evitar hongos." },
+            { cat: "salud", t: "Acostúmbrala a que le toquen las patas y la boca desde pequeña." },
+            { cat: "salud", t: "Usa protector solar canino en la nariz si es muy rosada y hay mucho sol." },
+            { cat: "salud", t: "Mantén limpio su comedero y bebedero diariamente." },
+            { cat: "salud", t: "Si Electra vomita espuma amarilla, puede ser hambre; ajusta horarios." },
+            { cat: "salud", t: "Evita que suba y baje escaleras largas de forma repetitiva siendo cachorro." },
+            { cat: "salud", t: "Considera un seguro veterinario; los Collie son curiosos y propensos a accidentes." },
+            { cat: "salud", t: "Hazle un chequeo de sangre anual preventivo." },
+
+            // 4. HIGIENE (25)
+            { cat: "higiene", t: "Cepillado profundo 2 o 3 veces por semana para evitar nudos." },
+            { cat: "higiene", t: "Usa un cepillo tipo 'Slicker' para la capa interna de pelo." },
+            { cat: "higiene", t: "Revisa sus patas tras el campo en busca de 'espigas' clavadas." },
+            { cat: "higiene", t: "Limpia sus ojos con suero fisiológico y gasa estéril." },
+            { cat: "higiene", t: "Ten a mano un kit de primeros auxilios (vendas, antiséptico)." },
+            { cat: "higiene", t: "Limpia su cama cada 15 días para evitar olores y ácaros." },
+            { cat: "higiene", t: "Usa toallitas húmedas para perros tras paseos lluviosos." },
+            { cat: "higiene", t: "Acostúmbrala al secador de pelo con premios y paciencia." },
+            { cat: "higiene", t: "Revisa la zona de debajo de las orejas; suele anudarse el pelo ahí." },
+            { cat: "higiene", t: "Usa champú específico para pH canino, nunca humano." },
+            { cat: "higiene", t: "Recorta el pelo sobrante entre las almohadillas para mejor agarre." },
+            { cat: "higiene", t: "Mantén su zona de comida alejada de su zona de descanso." },
+            { cat: "higiene", t: "Si se ensucia con barro, deja que se seque y luego cepilla (sale mejor)." },
+            { cat: "higiene", t: "Usa colonias para perros solo si son naturales y no le molestan." },
+            { cat: "higiene", t: "Identifícala siempre con chapa y número de teléfono, además del chip." },
+            { cat: "higiene", t: "Vigila el sarro en los colmillos; si está muy negro, necesita limpieza profesional." },
+            { cat: "higiene", t: "Ten siempre bolsas para excrementos a mano." },
+            { cat: "higiene", t: "Limpia las babas de sus juguetes de vez en cuando." },
+            { cat: "higiene", t: "Si tiene el pelo largo en el 'pantalón' trasero, recórtalo un poco por higiene." },
+            { cat: "higiene", t: "Evita que beba de charcos con agua estancada." },
+            { cat: "higiene", t: "Si viajas en coche, usa arnés de seguridad o transportín homologado." },
+            { cat: "higiene", t: "Lleva agua y un bebedero portátil en paseos largos." },
+            { cat: "higiene", t: "Si Electra se rasca mucho las orejas, puede tener ácaros; veterinario." },
+            { cat: "higiene", t: "Usa bálsamo para almohadillas si se ven agrietadas." },
+            { cat: "higiene", t: "Disfruta de cada momento: ¡Electra es única!" }
+        ];
+
+        function renderTips(filter = '') {
+            const container = document.getElementById('tips-list');
+            container.innerHTML = '';
+            
+            const filteredTips = tips.filter(tip => 
+                tip.t.toLowerCase().includes(filter.toLowerCase()) || 
+                tip.cat.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            filteredTips.forEach((tip, index) => {
+                const div = document.createElement('div');
+                div.className = 'tip-card shadow-sm';
+                div.innerHTML = `
+                    <div class="category-badge cat-${tip.cat}">${tip.cat}</div>
+                    <div class="flex gap-3">
+                        <span class="font-black text-slate-300 text-lg">#${index + 1}</span>
+                        <p class="text-[13px] font-semibold text-slate-700 leading-snug">${tip.t}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        document.getElementById('tipSearch').addEventListener('input', (e) => {
+            renderTips(e.target.value);
+        });
+
+        renderTips();
+    </script>
+</body>
+</html>
