@@ -1,1 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Electra | Biblioteca de Teoría</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8f9fc; 
+            color: #101828;
+            margin: 0;
+            line-height: 1.6;
+        }
 
+        .theory-section {
+            background: white;
+            border: 1px solid #eaecf0;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid #eaecf0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #667085;
+            flex: 1;
+            text-decoration: none;
+        }
+
+        .nav-item.active { color: #1570ef; }
+        .nav-item span { font-size: 9px; font-weight: 700; text-transform: uppercase; }
+
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0086ff;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drop-cap::first-letter {
+            font-size: 3rem;
+            font-weight: 900;
+            float: left;
+            margin-right: 8px;
+            line-height: 1;
+            color: #1570ef;
+        }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- HEADER -->
+    <header class="px-6 pt-14 pb-8 bg-white border-b border-slate-100">
+        <h1 class="text-3xl font-black text-slate-900 tracking-tighter">Biblioteca Teórica</h1>
+        <p class="text-sm font-semibold text-blue-600 mt-1 uppercase tracking-wider">Entendiendo la mente de Electra</p>
+    </header>
+
+    <main class="px-6 mt-8">
+
+        <!-- INTRODUCCIÓN -->
+        <section class="theory-section shadow-sm">
+            <h2 class="text-blue-600"><i class="fas fa-brain"></i> La Inteligencia Border Collie</h2>
+            <p class="drop-cap text-slate-600 text-sm">
+                El Border Collie no es solo un perro "listo"; es un procesador de datos biológico. Según Stanley Coren, es la raza #1 en inteligencia de trabajo. Esto significa que Electra tiene la capacidad de aprender una orden nueva en menos de 5 repeticiones y obedecer a la primera el 95% de las veces.
+            </p>
+            <div class="highlight-box">
+                "Tener un Border Collie es como tener un Ferrari; si no sabes conducirlo, terminarás chocando contra una pared de aburrimiento y conductas destructivas."
+            </div>
+        </section>
+
+        <!-- LENGUAJE CORPORAL -->
+        <section class="theory-section shadow-sm">
+            <h2 class="text-orange-500"><i class="fas fa-dog"></i> El Lenguaje Silencioso</h2>
+            <p class="text-slate-600 text-sm mb-4">
+                Los perros se comunican un 80% mediante señales corporales. Para entender a Electra, debes observar sus "señales de calma":
+            </p>
+            <ul class="space-y-3 text-sm font-medium text-slate-700">
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span><strong>Lamerse el hocico:</strong> No tiene hambre, está procesando estrés o pidiendo calma.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span><strong>Bostezar:</strong> Lo hace para liberar tensión propia o de su entorno.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span><strong>Mirada de "ojo de ballena":</strong> Cuando muestra el blanco del ojo, está muy incómoda o asustada.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- EL OJO DEL COLLIE -->
+        <section class="theory-section shadow-sm">
+            <h2 class="text-purple-600"><i class="fas fa-eye"></i> El Famoso "Eye"</h2>
+            <p class="text-slate-600 text-sm italic">
+                Es la mirada hipnótica que usa para controlar el ganado. Electra la usará con pelotas, otros perros o incluso contigo. No es agresividad, es una fijación instintiva que activa su sistema de dopamina. Es fundamental aprender a "romperle" la mirada con juegos de olfato para evitar obsesiones.
+            </p>
+        </section>
+
+        <!-- CICLOS DE APRENDIZAJE -->
+        <section class="theory-section shadow-sm border-l-4 border-l-green-500">
+            <h2 class="text-green-600"><i class="fas fa-graduation-cap"></i> El Periodo Crítico</h2>
+            <p class="text-slate-600 text-sm">
+                Hasta los 4 meses, Electra es una "esponja". Todo lo que no vea de forma positiva ahora (ruidos, niños, coches) podría convertirse en un miedo reactivo en el futuro. El adiestramiento no debe ser "entrenar trucos", sino "construir experiencias seguras".
+            </p>
+        </section>
+
+        <!-- REFUERZO VS CASTIGO -->
+        <section class="theory-section shadow-sm">
+            <h2 class="text-red-600"><i class="fas fa-balance-scale"></i> Psicología del Refuerzo</h2>
+            <p class="text-slate-600 text-sm mb-4">
+                Existen 4 cuadrantes en el aprendizaje, pero para Electra solo usaremos el <strong>Refuerzo Positivo</strong>:
+            </p>
+            <div class="grid grid-cols-1 gap-3">
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-xs uppercase tracking-widest text-slate-400 mb-1">Concepto Clave</h4>
+                    <p class="text-slate-800 font-bold">Captura de conducta</p>
+                    <p class="text-xs text-slate-500 mt-1">En lugar de obligarla a sentarse, espera a que lo haga sola y prémiala. Ese aprendizaje es 10 veces más fuerte que el forzado.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="fixed bottom-0 left-0 right-0 nav-blur px-2 py-5 flex justify-around items-center z-50">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-house-user"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Entreno.html" class="nav-item">
+            <i class="fas fa-dumbbell"></i>
+            <span>Entreno</span>
+        </a>
+        <a href="Comida.html" class="nav-item">
+            <i class="fas fa-utensils"></i>
+            <span>Comida</span>
+        </a>
+        <a href="Tips.html" class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            <span>Tips</span>
+        </a>
+        <a href="Teoría.html" class="nav-item active">
+            <i class="fas fa-book-open"></i>
+            <span>Teoría</span>
+        </a>
+        <a href="Agenda.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda</span>
+        </a>
+    </nav>
+
+</body>
+</html>
