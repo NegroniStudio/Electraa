@@ -1,1 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agenda | Electra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfd; color: #101828; margin: 0; padding: 0; }
+        
+        .glass-card { background: white; border: 1px solid #eaecf0; border-radius: 1.5rem; }
+        
+        /* Barra de herramientas inferior UNIFICADA */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid #eaecf0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 1.25rem 0.5rem;
+            z-index: 9999;
+        }
 
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #667085;
+            flex: 1;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item i { font-size: 1.1rem; }
+        .nav-item span { font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        .nav-item.active { color: #1570ef; }
+
+        /* Estilos específicos de Agenda */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .photo-card {
+            aspect-ratio: 1 / 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            background: #f2f4f7;
+            border: 1px solid #eaecf0;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #d92d20;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .empty-state {
+            border: 2px dashed #eaecf0;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #667085;
+        }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- HEADER -->
+    <div class="relative h-32 w-full overflow-hidden bg-slate-900 flex items-center px-6">
+        <div class="z-10">
+            <h1 class="text-2xl font-black text-white tracking-tighter">Agenda de Electra</h1>
+            <p class="text-blue-200 text-xs font-bold uppercase tracking-wider">Recuerdos y Notas</p>
+        </div>
+        <div class="absolute right-[-10px] opacity-10">
+            <i class="fas fa-calendar-alt text-[100px] text-white"></i>
+        </div>
+    </div>
+
+    <div class="px-5 mt-6 space-y-8">
+        
+        <!-- SECCIÓN FOTOS -->
+        <section>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-extrabold text-slate-900">Fotos</h2>
+                <label class="bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-full cursor-pointer active:scale-95 transition-transform">
+                    <i class="fas fa-plus mr-1"></i> SUBIR
+                    <input type="file" id="photoInput" accept="image/*" class="hidden">
+                </label>
+            </div>
+            
+            <div id="photoContainer" class="photo-grid">
+                <!-- Las fotos se cargan aquí -->
+            </div>
+            
+            <div id="noPhotos" class="empty-state hidden">
+                <i class="fas fa-camera text-3xl mb-2"></i>
+                <p class="text-xs font-medium">Aún no hay fotos de Electra</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN NOTAS -->
+        <section>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-extrabold text-slate-900">Notas</h2>
+                <button onclick="toggleNoteModal()" class="bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-full active:scale-95 transition-transform">
+                    <i class="fas fa-pen mr-1"></i> NUEVA
+                </button>
+            </div>
+
+            <div id="notesContainer" class="space-y-4">
+                <!-- Las notas se cargan aquí -->
+            </div>
+
+            <div id="noNotes" class="empty-state hidden">
+                <i class="fas fa-sticky-note text-3xl mb-2"></i>
+                <p class="text-xs font-medium">No has escrito ninguna nota</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL PARA NUEVA NOTA -->
+    <div id="noteModal" class="fixed inset-0 bg-black/50 z-[10000] hidden flex items-center justify-center p-6 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl">
+            <div class="p-6">
+                <h3 class="text-xl font-black mb-4">Nueva Nota</h3>
+                <input type="text" id="noteTitle" placeholder="Título de la nota" class="w-full border-b border-slate-200 py-2 mb-4 outline-none font-bold text-slate-800 placeholder:text-slate-300">
+                <textarea id="noteContent" rows="4" placeholder="Escribe aquí..." class="w-full bg-slate-50 rounded-xl p-4 text-sm outline-none resize-none"></textarea>
+            </div>
+            <div class="flex border-t border-slate-100">
+                <button onclick="toggleNoteModal()" class="flex-1 py-4 text-sm font-bold text-slate-400">Cancelar</button>
+                <button onclick="saveNote()" class="flex-1 py-4 text-sm font-bold text-blue-600 bg-blue-50">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN INFERIOR -->
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-house-user"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Entreno.html" class="nav-item">
+            <i class="fas fa-dumbbell"></i>
+            <span>Entreno</span>
+        </a>
+        <a href="Comida.html" class="nav-item">
+            <i class="fas fa-utensils"></i>
+            <span>Comida</span>
+        </a>
+        <a href="Tips.html" class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            <span>Tips</span>
+        </a>
+        <a href="Teoría.html" class="nav-item">
+            <i class="fas fa-book-open"></i>
+            <span>Teoría</span>
+        </a>
+        <a href="Agenda.html" class="nav-item active">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda</span>
+        </a>
+    </nav>
+
+    <script>
+        // --- MANEJO DE DATOS ---
+        let photos = JSON.parse(localStorage.getItem('electra_photos')) || [];
+        let notes = JSON.parse(localStorage.getItem('electra_notes')) || [];
+
+        // --- FUNCIONES DE FOTOS ---
+        const photoInput = document.getElementById('photoInput');
+        const photoContainer = document.getElementById('photoContainer');
+        const noPhotos = document.getElementById('noPhotos');
+
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                // Optimizar imagen para no llenar el localstorage (limitar a 600px)
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 600;
+                    const scale = MAX_WIDTH / img.width;
+                    canvas.width = MAX_WIDTH;
+                    canvas.height = img.height * scale;
+                    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    
+                    const optimizedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+                    photos.unshift(optimizedBase64);
+                    saveAndRenderPhotos();
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function deletePhoto(index) {
+            photos.splice(index, 1);
+            saveAndRenderPhotos();
+        }
+
+        function saveAndRenderPhotos() {
+            localStorage.setItem('electra_photos', JSON.stringify(photos));
+            photoContainer.innerHTML = '';
+            
+            if (photos.length === 0) {
+                noPhotos.classList.remove('hidden');
+            } else {
+                noPhotos.classList.add('hidden');
+                photos.forEach((data, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'photo-card shadow-sm';
+                    div.innerHTML = `
+                        <img src="${data}">
+                        <button class="delete-btn" onclick="deletePhoto(${index})"><i class="fas fa-times"></i></button>
+                    `;
+                    photoContainer.appendChild(div);
+                });
+            }
+        }
+
+        // --- FUNCIONES DE NOTAS ---
+        const noteModal = document.getElementById('noteModal');
+        const notesContainer = document.getElementById('notesContainer');
+        const noNotes = document.getElementById('noNotes');
+
+        function toggleNoteModal() {
+            noteModal.classList.toggle('hidden');
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+        }
+
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').value;
+            
+            if (!title || !content) return;
+
+            const newNote = {
+                title,
+                content,
+                date: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
+            };
+
+            notes.unshift(newNote);
+            localStorage.setItem('electra_notes', JSON.stringify(notes));
+            toggleNoteModal();
+            renderNotes();
+        }
+
+        function deleteNote(index) {
+            notes.splice(index, 1);
+            localStorage.setItem('electra_notes', JSON.stringify(notes));
+            renderNotes();
+        }
+
+        function renderNotes() {
+            notesContainer.innerHTML = '';
+            if (notes.length === 0) {
+                noNotes.classList.remove('hidden');
+            } else {
+                noNotes.classList.add('hidden');
+                notes.forEach((note, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'glass-card p-5 shadow-sm relative overflow-hidden';
+                    div.innerHTML = `
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest">${note.date}</span>
+                            <button onclick="deleteNote(${index})" class="text-slate-300 hover:text-red-500 transition-colors">
+                                <i class="fas fa-trash-alt text-xs"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-black text-slate-900 mb-1">${note.title}</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">${note.content}</p>
+                    `;
+                    notesContainer.appendChild(div);
+                });
+            }
+        }
+
+        // Inicializar
+        saveAndRenderPhotos();
+        renderNotes();
+    </script>
+</body>
+</html>
