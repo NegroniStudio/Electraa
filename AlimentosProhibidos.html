@@ -1,1 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>50 Alimentos Prohibidos | Electra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fff1f1; color: #101828; margin: 0; padding: 0; }
+        .danger-card { background: white; border: 1px solid #fee4e2; border-radius: 1.25rem; padding: 1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 12px; transition: transform 0.2s; }
+        .danger-card:active { transform: scale(0.98); }
+        .level-high { border-left: 4px solid #d92d20; }
+        .level-med { border-left: 4px solid #f79009; }
+        .level-low { border-left: 4px solid #667085; }
+        
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75px;
+            background: white;
+            border-top: 1px solid #eaecf0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 9999;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+        }
 
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: #667085;
+            text-decoration: none;
+            flex: 1;
+            gap: 4px;
+        }
+
+        .nav-item i { font-size: 1.1rem; }
+        .nav-item.active { color: #d92d20; pointer-events: none; }
+        
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(185, 28, 28, 0.95);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- HEADER PELIGRO -->
+    <div class="sticky-header p-4 flex items-center justify-between shadow-lg">
+        <div class="flex items-center gap-3">
+            <a href="Comida.html" class="bg-white/20 p-2 rounded-xl text-white active:bg-white/40">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="text-white font-black text-lg italic tracking-tighter uppercase">Guía de Tóxicos</h1>
+        </div>
+        <div class="bg-white/10 px-3 py-1 rounded-full text-[10px] text-white font-bold">50 ELEMENTOS</div>
+    </div>
+
+    <div class="px-5 mt-6">
+        
+        <!-- BOTÓN REGRESO RÁPIDO -->
+        <a href="Comida.html" class="flex items-center justify-center gap-2 w-full bg-white border-2 border-red-200 p-3 rounded-2xl text-red-600 font-black text-xs uppercase tracking-widest mb-8 shadow-sm active:bg-red-50">
+            <i class="fas fa-calculator"></i>
+            Regresar a Calculadora
+        </a>
+
+        <!-- GRUPO 1: LETALES / EMERGENCIA INMEDIATA -->
+        <h3 class="text-[10px] font-black text-red-600 uppercase tracking-[0.2em] mb-4 ml-1 flex items-center gap-2">
+            <i class="fas fa-skull"></i> NIVEL 1: LETALES
+        </h3>
+        
+        <div class="danger-card level-high">
+            <div class="text-xl">🍫</div>
+            <div>
+                <h4 class="font-black text-xs">1. Chocolate Negro</h4>
+                <p class="text-[10px] text-slate-500">Teobromina fatal.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">🍇</div>
+            <div>
+                <h4 class="font-black text-xs">2. Uvas</h4>
+                <p class="text-[10px] text-slate-500">Fallo renal agudo.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">🍪</div>
+            <div>
+                <h4 class="font-black text-xs">3. Xilitol (Chicles/Dulces)</h4>
+                <p class="text-[10px] text-slate-500">Colapso hepático.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">☕</div>
+            <div>
+                <h4 class="font-black text-xs">4. Café / Cafeína</h4>
+                <p class="text-[10px] text-slate-500">Taquicardia extrema.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">🧅</div>
+            <div>
+                <h4 class="font-black text-xs">5. Cebolla (Polvo/Cruda)</h4>
+                <p class="text-[10px] text-slate-500">Destruye glóbulos rojos.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">🧄</div>
+            <div>
+                <h4 class="font-black text-xs">6. Ajo</h4>
+                <p class="text-[10px] text-slate-500">Anemia hemolítica.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">🍷</div>
+            <div>
+                <h4 class="font-black text-xs">7. Alcohol</h4>
+                <p class="text-[10px] text-slate-500">Coma etílico rápido.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">🥜</div>
+            <div>
+                <h4 class="font-black text-xs">8. Nueces de Macadamia</h4>
+                <p class="text-[10px] text-slate-500">Parálisis temporal.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">🍞</div>
+            <div>
+                <h4 class="font-black text-xs">9. Masa de pan cruda</h4>
+                <p class="text-[10px] text-slate-500">Expansión gástrica.</p>
+            </div>
+        </div>
+        <div class="danger-card level-high">
+            <div class="text-xl">💊</div>
+            <div>
+                <h4 class="font-black text-xs">10. Paracetamol/Ibuprofeno</h4>
+                <p class="text-[10px] text-slate-500">Envenenamiento químico.</p>
+            </div>
+        </div>
+
+        <!-- GRUPO 2: DAÑINOS Y TÓXICOS -->
+        <h3 class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] mt-8 mb-4 ml-1">
+            NIVEL 2: DAÑINOS
+        </h3>
+        <div class="grid grid-cols-1 gap-2">
+            <div class="danger-card level-med"><div>🥑</div><h4 class="font-black text-[11px]">11. Palta (Persina)</h4></div>
+            <div class="danger-card level-med"><div>🥛</div><h4 class="font-black text-[11px]">12. Leche de vaca</h4></div>
+            <div class="danger-card level-med"><div>🦴</div><h4 class="font-black text-[11px]">13. Huesos cocidos</h4></div>
+            <div class="danger-card level-med"><div>🍎</div><h4 class="font-black text-[11px]">14. Semillas de Manzana</h4></div>
+            <div class="danger-card level-med"><div>🍑</div><h4 class="font-black text-[11px]">15. Carozos de Durazno</h4></div>
+            <div class="danger-card level-med"><div>🧂</div><h4 class="font-black text-[11px]">16. Sal en exceso</h4></div>
+            <div class="danger-card level-med"><div>🍦</div><h4 class="font-black text-[11px]">17. Helados (Azúcar/Lactosa)</h4></div>
+            <div class="danger-card level-med"><div>🍄</div><h4 class="font-black text-[11px]">18. Hongos silvestres</h4></div>
+            <div class="danger-card level-med"><div>🥤</div><h4 class="font-black text-[11px]">19. Bebidas Cola</h4></div>
+            <div class="danger-card level-med"><div>🥓</div><h4 class="font-black text-[11px]">20. Grasa de carne cocida</h4></div>
+            <div class="danger-card level-med"><div>🍖</div><h4 class="font-black text-[11px]">21. Embutidos (Salitre)</h4></div>
+            <div class="danger-card level-med"><div>🍺</div><h4 class="font-black text-[11px]">22. Lúpulo (Cerveza)</h4></div>
+            <div class="danger-card level-med"><div>🥨</div><h4 class="font-black text-[11px]">23. Snacks salados</h4></div>
+            <div class="danger-card level-med"><div>🍬</div><h4 class="font-black text-[11px]">24. Caramelos duros</h4></div>
+            <div class="danger-card level-med"><div>🥯</div><h4 class="font-black text-[11px]">25. Pasas de uva</h4></div>
+            <div class="danger-card level-med"><div>🥘</div><h4 class="font-black text-[11px]">26. Comida con picante</h4></div>
+            <div class="danger-card level-med"><div>🍲</div><h4 class="font-black text-[11px]">27. Caldos en cubito</h4></div>
+            <div class="danger-card level-med"><div>🥮</div><h4 class="font-black text-[11px]">28. Pan dulce</h4></div>
+            <div class="danger-card level-med"><div>🥚</div><h4 class="font-black text-[11px]">29. Clara de huevo cruda</h4></div>
+            <div class="danger-card level-med"><div>🥩</div><h4 class="font-black text-[11px]">30. Higado en exceso</h4></div>
+        </div>
+
+        <!-- GRUPO 3: EVITAR TOTALMENTE -->
+        <h3 class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mt-8 mb-4 ml-1">
+            NIVEL 3: EVITAR SIEMPRE
+        </h3>
+        <div class="grid grid-cols-2 gap-2 text-[10px]">
+            <div class="bg-white p-2 rounded-lg border border-slate-200">31. Té negro/verde</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">32. Ruibarbo</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">33. Hojas de papa</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">34. Tallos de tomate</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">35. Berenjena cruda</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">36. Cítricos (exceso)</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">37. Alimentos mohosos</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">38. Corazón de Pera</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">39. Nueces comunes</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">40. Almendras</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">41. Pescado crudo</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">42. Salame / Chorizo</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">43. Quesos azules</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">44. Mayonesa</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">45. Frituras</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">46. Bebidas energéticas</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">47. Dulce de leche</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">48. Chocolate blanco</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">49. Puerro</div>
+            <div class="bg-white p-2 rounded-lg border border-slate-200">50. Cebollino</div>
+        </div>
+
+        <div class="mt-10 p-4 bg-red-600 rounded-2xl text-white text-center">
+            <p class="text-[10px] font-bold uppercase mb-1">En caso de ingesta:</p>
+            <p class="text-sm font-black italic">NO PROVOCAR EL VÓMITO SIN CONSULTAR AL VETERINARIO</p>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN INFERIOR -->
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>INICIO</span>
+        </a>
+        <a href="Entreno.html" class="nav-item">
+            <i class="fas fa-dumbbell"></i>
+            <span>ENTRENO</span>
+        </a>
+        <a href="Comida.html" class="nav-item">
+            <i class="fas fa-bone"></i>
+            <span>COMIDA</span>
+        </a>
+        <a href="Tips.html" class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            <span>TIPS</span>
+        </a>
+        <a href="Teoria.html" class="nav-item">
+            <i class="fas fa-book-open"></i>
+            <span>TEORÍA</span>
+        </a>
+        <a href="Agenda.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>AGENDA</span>
+        </a>
+    </nav>
+
+</body>
+</html>
